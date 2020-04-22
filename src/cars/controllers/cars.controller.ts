@@ -1,14 +1,22 @@
-import { Controller, Delete, Get, Param } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { CarsService } from '../services/cars/cars.service';
 
 import { Car } from '../entities/car.entity';
 
+import { CarDto } from '../dto/car.dto';
+
 @ApiTags('Cars')
 @Controller('cars')
 export class CarsController {
   constructor(private readonly carsService: CarsService) {}
+
+  @Post()
+  @ApiResponse({ status: 201, description: 'Success' })
+  create(@Body() createCarDto: CarDto): Promise<Car> {
+    return this.carsService.create(createCarDto);
+  }
 
   @Get()
   @ApiResponse({ status: 200, description: 'Success' })

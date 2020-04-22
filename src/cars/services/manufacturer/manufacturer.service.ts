@@ -12,6 +12,10 @@ export class ManufacturerService {
     private readonly manufacturerRepository: Repository<Manufacturer>,
   ) {}
 
+  create(manufacturerDto: Manufacturer): Promise<Manufacturer> {
+    return this.manufacturerRepository.save(manufacturerDto);
+  }
+
   async deleteOne(id: string): Promise<void> {
     const { affected } = await this.manufacturerRepository.delete(id);
     if (!affected) {
