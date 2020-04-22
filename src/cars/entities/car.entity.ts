@@ -10,7 +10,8 @@ import {
 
 import { Manufacturer } from './manufacturer.entity';
 import { Owner } from './owner.entity';
-import { CarDto } from '../dto/car.dto';
+
+import { CreateCarDto } from '../dto/create-car.dto';
 
 @Entity({ name: 'cars' })
 export class Car {
@@ -31,7 +32,7 @@ export class Car {
   @JoinTable()
   owners: Owner[];
 
-  constructor(carDto: CarDto) {
+  constructor(carDto: CreateCarDto) {
     if (carDto) {
       this.price = carDto.price;
       this.firstRegistrationDate = carDto.firstRegistrationDate;
