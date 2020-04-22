@@ -1,7 +1,7 @@
-import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
+import { Controller, Delete, Get, Param } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { CarsService } from '../services/cars.service';
+import { CarsService } from '../services/cars/cars.service';
 
 import { Car } from '../entities/car.entity';
 
@@ -19,11 +19,18 @@ export class CarsController {
   @Get(':id')
   @ApiResponse({ status: 200, description: 'Success' })
   @ApiResponse({ status: 400, description: 'Not found' })
-  async findOneById(@Param('id') id: string): Promise<Car> {
-    const car = await this.carsService.findOne(id);
-    if (car) {
-      return car;
-    }
-    throw new NotFoundException('Car not found');
+  findOneById(@Param('id') id: string): Promise<Car> {
+    return this.carsService.findOne(id);
+  }
+
+  @Delete(':id')
+  @ApiResponse({ status: 200, description: 'Success' })
+  @ApiResponse({ status: 400, description: 'Not found' })
+  async deleteOneById(@Param('id') id: string) {
+    await this.carsService.deleteOne(id);
+    return {
+      status: 'Success',
+      message: 'Car and manufacturer success delete',
+    };
   }
 }
