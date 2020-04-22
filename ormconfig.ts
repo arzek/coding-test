@@ -9,4 +9,5 @@ export const ormConfig: TypeOrmModuleOptions = {
   database: process.env.POSTGRES_DB,
   entities: ['dist/**/*.entity{.ts,.js}'],
   synchronize: true,
+  logging: true,
 };
