@@ -9,12 +9,12 @@ import {
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { CarsService } from '../services/cars/cars.service';
+import { CarsService } from '../../services/cars/cars.service';
 
-import { Car } from '../entities/car.entity';
+import { Car } from '../../entities/car.entity';
 
-import { CreateCarDto } from '../dto/create-car.dto';
-import { EditCarDto } from '../dto/edit-car.dto';
+import { CreateCarDto } from '../../dto/create-car.dto';
+import { UpdateCarDto } from '../../dto/update-car.dto';
 
 @ApiTags('Cars')
 @Controller('cars')
@@ -41,9 +41,12 @@ export class CarsController {
   }
 
   @Put(':id')
-  @ApiResponse({ status: 201, description: 'Success' })
-  edit(@Param('id') id: string, @Body() carDto: EditCarDto): Promise<Car> {
-    return this.carsService.editOne(id, carDto);
+  @ApiResponse({ status: 200, description: 'Success' })
+  updateById(
+    @Param('id') id: string,
+    @Body() carDto: UpdateCarDto,
+  ): Promise<Car> {
+    return this.carsService.updateOne(id, carDto);
   }
 
   @Delete(':id')

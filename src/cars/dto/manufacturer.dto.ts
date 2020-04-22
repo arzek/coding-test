@@ -1,15 +1,23 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsMobilePhone, IsNotEmpty, Length, Min } from 'class-validator';
+import {
+  IsInt,
+  IsMobilePhone,
+  IsNotEmpty,
+  IsString,
+  Length,
+  Min,
+} from 'class-validator';
 
 export class ManufacturerDto {
   @IsNotEmpty()
+  @IsString()
   @Length(5)
   @ApiProperty()
   name: string;
 
   @IsNotEmpty()
   @IsMobilePhone()
-  @ApiProperty()
+  @ApiProperty({ example: '+380994154440' })
   phone: string;
 
   @Min(1)

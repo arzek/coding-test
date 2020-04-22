@@ -8,6 +8,7 @@ import { ManufacturerService } from '../manufacturer/manufacturer.service';
 import { Car } from '../../entities/car.entity';
 
 import { CreateCarDto } from '../../dto/create-car.dto';
+import { UpdateCarDto } from '../../dto/update-car.dto';
 
 @Injectable()
 export class CarsService {
@@ -46,7 +47,7 @@ export class CarsService {
     return this.connection.manager.save(car);
   }
 
-  async editOne(id: string, carDto: CreateCarDto): Promise<Car> {
+  async updateOne(id: string, carDto: UpdateCarDto): Promise<Car> {
     const car = new Car(carDto);
     await this.carRepository.update(id, car);
     return this.findOne(id);
