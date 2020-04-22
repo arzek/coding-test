@@ -6,6 +6,7 @@ import {
   JoinColumn,
   ManyToMany,
   JoinTable,
+  OneToMany,
 } from 'typeorm';
 
 import { Manufacturer } from './manufacturer.entity';
@@ -28,7 +29,10 @@ export class Car {
   @Column('timestamp')
   firstRegistrationDate: Date;
 
-  @ManyToMany(() => Owner)
+  @OneToMany(
+    type => Owner,
+    owner => owner.car,
+  )
   @JoinTable()
   owners: Owner[];
 

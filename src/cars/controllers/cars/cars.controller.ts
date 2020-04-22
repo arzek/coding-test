@@ -56,7 +56,7 @@ export class CarsController {
     await this.carsService.deleteOne(id);
     return {
       status: 'Success',
-      message: 'Car and manufacturer success delete',
+      message: 'Car and manufacturer/owners success delete',
     };
   }
 }
