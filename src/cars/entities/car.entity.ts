@@ -4,7 +4,6 @@ import {
   Column,
   OneToOne,
   JoinColumn,
-  ManyToMany,
   JoinTable,
   OneToMany,
 } from 'typeorm';
@@ -30,7 +29,7 @@ export class Car {
   firstRegistrationDate: Date;
 
   @OneToMany(
-    type => Owner,
+    () => Owner,
     owner => owner.car,
   )
   @JoinTable()
