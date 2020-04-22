@@ -11,7 +11,7 @@ import {
 import { Manufacturer } from './manufacturer.entity';
 import { Owner } from './owner.entity';
 
-@Entity()
+@Entity({ name: 'cars' })
 export class Car {
   @PrimaryGeneratedColumn()
   id: string;

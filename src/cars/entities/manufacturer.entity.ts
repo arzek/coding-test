@@ -1,7 +1,6 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Car } from './car.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'manufacturers' })
 export class Manufacturer {
   @PrimaryGeneratedColumn()
   id: string;
