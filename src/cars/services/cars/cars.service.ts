@@ -35,9 +35,21 @@ export class CarsService {
 
   async create(carDto: CreateCarDto): Promise<Car> {
     const car = new Car(carDto);
-    await this.connection.manager.save(car.manufacturer);
-    await this.connection.manager.save(car.owners);
+    if (car.manufacturer) {
+      await this.connection.manager.save(car.manufacturer);
+    }
+
+    if (car.owners) {
+      await this.connection.manager.save(car.owners);
+    }
+
     return this.connection.manager.save(car);
+  }
+
+  async editOne(id: string, carDto: CreateCarDto): Promise<Car> {
+    const car = new Car(carDto);
+    await this.carRepository.update(id, car);
+    return this.findOne(id);
   }
 
   async deleteOne(id: string): Promise<void> {

@@ -36,10 +36,16 @@ export class Car {
     if (carDto) {
       this.price = carDto.price;
       this.firstRegistrationDate = carDto.firstRegistrationDate;
-      this.manufacturer = new Manufacturer(carDto.manufacturer);
-      this.owners = [];
-      for (const ownerDto of carDto.owners) {
-        this.owners.push(new Owner(ownerDto));
+
+      if (carDto.manufacturer) {
+        this.manufacturer = new Manufacturer(carDto.manufacturer);
+      }
+
+      if (carDto.owners) {
+        this.owners = [];
+        for (const ownerDto of carDto.owners) {
+          this.owners.push(new Owner(ownerDto));
+        }
       }
     }
   }

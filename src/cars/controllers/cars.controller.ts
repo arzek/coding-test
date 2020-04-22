@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { CarsService } from '../services/cars/cars.service';
@@ -6,6 +14,7 @@ import { CarsService } from '../services/cars/cars.service';
 import { Car } from '../entities/car.entity';
 
 import { CreateCarDto } from '../dto/create-car.dto';
+import { EditCarDto } from '../dto/edit-car.dto';
 
 @ApiTags('Cars')
 @Controller('cars')
@@ -27,8 +36,14 @@ export class CarsController {
 
   @Post()
   @ApiResponse({ status: 201, description: 'Success' })
-  create(@Body() createCarDto: CreateCarDto): Promise<Car> {
-    return this.carsService.create(createCarDto);
+  create(@Body() carDto: CreateCarDto): Promise<Car> {
+    return this.carsService.create(carDto);
+  }
+
+  @Put(':id')
+  @ApiResponse({ status: 201, description: 'Success' })
+  edit(@Param('id') id: string, @Body() carDto: EditCarDto): Promise<Car> {
+    return this.carsService.editOne(id, carDto);
   }
 
   @Delete(':id')
