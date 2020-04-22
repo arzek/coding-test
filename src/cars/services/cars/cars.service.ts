@@ -7,7 +7,7 @@ import { ManufacturerService } from '../manufacturer/manufacturer.service';
 
 import { Car } from '../../entities/car.entity';
 
-import { CarDto } from '../../dto/car.dto';
+import { CreateCarDto } from '../../dto/create-car.dto';
 
 @Injectable()
 export class CarsService {
@@ -15,16 +15,9 @@ export class CarsService {
 
   constructor(
     @InjectRepository(Car) private readonly carRepository: Repository<Car>,
-    private manufacturerService: ManufacturerService,
-    private connection: Connection,
+    private readonly manufacturerService: ManufacturerService,
+    private readonly connection: Connection,
   ) {}
-
-  async create(carDto: CarDto): Promise<Car> {
-    const car = new Car(carDto);
-    await this.connection.manager.save(car.manufacturer);
-    await this.connection.manager.save(car.owners);
-    return this.connection.manager.save(car);
-  }
 
   findAll(): Promise<Car[]> {
     return this.carRepository.find({ relations: this.relations });
@@ -38,6 +31,13 @@ export class CarsService {
       return car;
     }
     throw new NotFoundException('Car not found');
+  }
+
+  async create(carDto: CreateCarDto): Promise<Car> {
+    const car = new Car(carDto);
+    await this.connection.manager.save(car.manufacturer);
+    await this.connection.manager.save(car.owners);
+    return this.connection.manager.save(car);
   }
 
   async deleteOne(id: string): Promise<void> {

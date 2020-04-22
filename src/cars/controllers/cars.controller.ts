@@ -5,18 +5,12 @@ import { CarsService } from '../services/cars/cars.service';
 
 import { Car } from '../entities/car.entity';
 
-import { CarDto } from '../dto/car.dto';
+import { CreateCarDto } from '../dto/create-car.dto';
 
 @ApiTags('Cars')
 @Controller('cars')
 export class CarsController {
   constructor(private readonly carsService: CarsService) {}
-
-  @Post()
-  @ApiResponse({ status: 201, description: 'Success' })
-  create(@Body() createCarDto: CarDto): Promise<Car> {
-    return this.carsService.create(createCarDto);
-  }
 
   @Get()
   @ApiResponse({ status: 200, description: 'Success' })
@@ -29,6 +23,12 @@ export class CarsController {
   @ApiResponse({ status: 400, description: 'Not found' })
   findOneById(@Param('id') id: string): Promise<Car> {
     return this.carsService.findOne(id);
+  }
+
+  @Post()
+  @ApiResponse({ status: 201, description: 'Success' })
+  create(@Body() createCarDto: CreateCarDto): Promise<Car> {
+    return this.carsService.create(createCarDto);
   }
 
   @Delete(':id')
