@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
@@ -6,12 +11,15 @@ import { Repository } from 'typeorm';
 import { Manufacturer } from '../../entities/manufacturer.entity';
 
 import { ManufacturerDto } from '../../dto/manufacturer.dto';
+import { CarsService } from '../cars/cars.service';
 
 @Injectable()
 export class ManufacturerService {
   constructor(
     @InjectRepository(Manufacturer)
     private readonly manufacturerRepository: Repository<Manufacturer>,
+    @Inject(forwardRef(() => CarsService))
+    private readonly carsService: CarsService,
   ) {}
 
   async update(
@@ -21,6 +29,11 @@ export class ManufacturerService {
     const manufacturer = new Manufacturer(manufacturerDto);
     await this.manufacturerRepository.update(id, manufacturer);
     return this.findOne(id);
+  }
+
+  async findOneByCarId(id: string): Promise<Manufacturer> {
+    const car = await this.carsService.findOne(id);
+    return this.findOne(car.manufacturer.id);
   }
 
   async findOne(id: string): Promise<Manufacturer> {

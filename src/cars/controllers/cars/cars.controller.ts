@@ -27,6 +27,13 @@ export class CarsController {
     return this.carsService.findAll();
   }
 
+  @Get('manufacturer/:id')
+  @ApiResponse({ status: 200, description: 'Success' })
+  @ApiResponse({ status: 400, description: 'Not found' })
+  findOneByManufacturerId(@Param('id') id: string): Promise<Car> {
+    return this.carsService.findOneByManufacturerId(id);
+  }
+
   @Get(':id')
   @ApiResponse({ status: 200, description: 'Success' })
   @ApiResponse({ status: 400, description: 'Not found' })

@@ -1,6 +1,11 @@
 import { Connection, Repository } from 'typeorm';
 
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { ManufacturerService } from '../manufacturer/manufacturer.service';
@@ -16,6 +21,7 @@ export class CarsService {
 
   constructor(
     @InjectRepository(Car) private readonly carRepository: Repository<Car>,
+    @Inject(forwardRef(() => ManufacturerService))
     private readonly manufacturerService: ManufacturerService,
     private readonly connection: Connection,
   ) {}
@@ -28,6 +34,23 @@ export class CarsService {
     const car = await this.carRepository.findOne(id, {
       relations: this.relations,
     });
+    if (car) {
+      return car;
+    }
+    throw new NotFoundException('Car not found');
+  }
+
+  async findOneByManufacturerId(id: string): Promise<Car> {
+    const car = await this.carRepository.findOne(
+      {
+        manufacturer: {
+          id: id,
+        },
+      },
+      {
+        relations: this.relations,
+      },
+    );
     if (car) {
       return car;
     }
