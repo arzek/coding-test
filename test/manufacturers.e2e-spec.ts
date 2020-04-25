@@ -29,21 +29,21 @@ describe('ManufacturersController (e2e)', () => {
   it('PUT /manufacturers/{id} (success)', async () => {
     const { body } = await createCar(server);
 
-    const newManufacturers = {
+    const newManufacture = {
       name: faker.name.findName(),
       phone: '+380994154440',
       siret: faker.random.number(),
     };
 
-    const { body: newManufacturersBody } = await request(server)
+    const { body: newManufactureBody } = await request(server)
       .put(`/manufacturers/${body.manufacturer.id}`)
-      .send(newManufacturers)
+      .send(newManufacture)
       .expect(200);
 
-    expect(newManufacturers).toEqual({
-      name: newManufacturersBody.name,
-      phone: newManufacturersBody.phone,
-      siret: newManufacturersBody.siret,
+    expect(newManufacture).toEqual({
+      name: newManufactureBody.name,
+      phone: newManufactureBody.phone,
+      siret: newManufactureBody.siret,
     });
   });
 
