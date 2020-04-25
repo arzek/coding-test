@@ -1,7 +1,9 @@
+import { subMonths } from 'date-fns';
+
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { Repository } from 'typeorm';
+import { Repository, Between } from 'typeorm';
 
 import { Owner } from '../../entities/owner.entity';
 
@@ -13,6 +15,17 @@ export class OwnerService {
     @InjectRepository(Owner)
     private readonly ownerRepository: Repository<Owner>,
   ) {}
+
+  async removeByPurchaseDateRange(range = 18): Promise<Owner[]> {
+    const nowDate = new Date();
+    const owners = await this.ownerRepository.find({
+      where: {
+        purchaseDate: Between(subMonths(nowDate, range), nowDate),
+      },
+    });
+
+    return this.ownerRepository.remove(owners);
+  }
 
   async update(id: string, ownerDto: OwnerDto): Promise<Owner> {
     const owner = new Owner(ownerDto);

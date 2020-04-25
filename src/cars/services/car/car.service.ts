@@ -9,6 +9,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { ManufacturerService } from '../manufacturer/manufacturer.service';
+import { HelperService } from '../helper/helper.service';
 
 import { Car } from '../../entities/car.entity';
 
@@ -23,6 +24,7 @@ export class CarService {
     @InjectRepository(Car) private readonly carRepository: Repository<Car>,
     @Inject(forwardRef(() => ManufacturerService))
     private readonly manufacturerService: ManufacturerService,
+    private readonly helperService: HelperService,
     private readonly connection: Connection,
   ) {}
 
@@ -80,5 +82,28 @@ export class CarService {
     const car = await this.findOne(id);
     await this.carRepository.delete(id);
     await this.manufacturerService.deleteOne(car.manufacturer.id);
+  }
+
+  async setDiscount(
+    beginMonth = 12,
+    endMonth = 18,
+    percentage = 20,
+  ): Promise<void> {
+    const cars = await this.carRepository.find();
+
+    const nowCountMonths = this.helperService.getCountMonthsFromDate(
+      new Date(),
+    );
+    for (const car of cars) {
+      const carCountMonths = this.helperService.getCountMonthsFromDate(
+        car.firstRegistrationDate,
+      );
+      const diffCount = nowCountMonths - carCountMonths;
+
+      if (diffCount >= beginMonth && diffCount <= endMonth) {
+        car.price += Math.floor((car.price * percentage) / 100);
+        await this.carRepository.update(car.id, car);
+      }
+    }
   }
 }
