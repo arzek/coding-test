@@ -16,7 +16,7 @@ import { CreateCarDto } from '../../dto/create-car.dto';
 import { UpdateCarDto } from '../../dto/update-car.dto';
 
 @Injectable()
-export class CarsService {
+export class CarService {
   private relations = ['manufacturer', 'owners'];
 
   constructor(

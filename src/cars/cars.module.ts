@@ -5,7 +5,8 @@ import { CarsController } from './controllers/cars/cars.controller';
 import { OwnersController } from './controllers/owners/owners.controller';
 import { ManufacturersController } from './controllers/manufacturers/manufacturers.controller';
 
-import { CarsService } from './services/cars/cars.service';
+import { CarService } from './services/car/car.service';
+import { TasksService } from './services/task/task.service';
 import { OwnerService } from './services/owner/owner.service';
 import { ManufacturerService } from './services/manufacturer/manufacturer.service';
 
@@ -16,6 +17,6 @@ import { Manufacturer } from './entities/manufacturer.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Car, Manufacturer, Owner])],
   controllers: [CarsController, ManufacturersController, OwnersController],
-  providers: [CarsService, ManufacturerService, OwnerService],
+  providers: [CarService, ManufacturerService, OwnerService, TasksService],
 })
 export class CarsModule {}

@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { CarsService } from '../../services/cars/cars.service';
+import { CarService } from '../../services/car/car.service';
 
 import { Car } from '../../entities/car.entity';
 
@@ -17,34 +17,36 @@ import { CreateCarDto } from '../../dto/create-car.dto';
 import { UpdateCarDto } from '../../dto/update-car.dto';
 
 @ApiTags('Cars')
-@Controller('cars')
+@Controller('car')
 export class CarsController {
-  constructor(private readonly carsService: CarsService) {}
+  constructor(private readonly carService: CarService) {}
 
   @Get()
   @ApiResponse({ status: 200, description: 'Success' })
   findAll(): Promise<Car[]> {
-    return this.carsService.findAll();
+    return this.carService.findAll();
   }
 
-  @Get('manufacturer/:id')
+  @Get('manufacturer/:manufacturerId')
   @ApiResponse({ status: 200, description: 'Success' })
   @ApiResponse({ status: 400, description: 'Not found' })
-  findOneByManufacturerId(@Param('id') id: string): Promise<Car> {
-    return this.carsService.findOneByManufacturerId(id);
+  findOneByManufacturerId(
+    @Param('manufacturerId') manufacturerId: string,
+  ): Promise<Car> {
+    return this.carService.findOneByManufacturerId(manufacturerId);
   }
 
   @Get(':id')
   @ApiResponse({ status: 200, description: 'Success' })
   @ApiResponse({ status: 400, description: 'Not found' })
   findOneById(@Param('id') id: string): Promise<Car> {
-    return this.carsService.findOne(id);
+    return this.carService.findOne(id);
   }
 
   @Post()
   @ApiResponse({ status: 201, description: 'Success' })
   create(@Body() carDto: CreateCarDto): Promise<Car> {
-    return this.carsService.create(carDto);
+    return this.carService.create(carDto);
   }
 
   @Put(':id')
@@ -53,14 +55,14 @@ export class CarsController {
     @Param('id') id: string,
     @Body() carDto: UpdateCarDto,
   ): Promise<Car> {
-    return this.carsService.updateOne(id, carDto);
+    return this.carService.updateOne(id, carDto);
   }
 
   @Delete(':id')
   @ApiResponse({ status: 200, description: 'Success' })
   @ApiResponse({ status: 400, description: 'Not found' })
   async deleteOneById(@Param('id') id: string) {
-    await this.carsService.deleteOne(id);
+    await this.carService.deleteOne(id);
     return {
       status: 'Success',
       message: 'Car and manufacturer/owners success delete',

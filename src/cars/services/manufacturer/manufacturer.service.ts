@@ -11,15 +11,15 @@ import { Repository } from 'typeorm';
 import { Manufacturer } from '../../entities/manufacturer.entity';
 
 import { ManufacturerDto } from '../../dto/manufacturer.dto';
-import { CarsService } from '../cars/cars.service';
+import { CarService } from '../car/car.service';
 
 @Injectable()
 export class ManufacturerService {
   constructor(
     @InjectRepository(Manufacturer)
     private readonly manufacturerRepository: Repository<Manufacturer>,
-    @Inject(forwardRef(() => CarsService))
-    private readonly carsService: CarsService,
+    @Inject(forwardRef(() => CarService))
+    private readonly carService: CarService,
   ) {}
 
   async update(
@@ -32,7 +32,7 @@ export class ManufacturerService {
   }
 
   async findOneByCarId(id: string): Promise<Manufacturer> {
-    const car = await this.carsService.findOne(id);
+    const car = await this.carService.findOne(id);
     return this.findOne(car.manufacturer.id);
   }
 

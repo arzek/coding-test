@@ -8,7 +8,7 @@ import { Manufacturer } from '../../entities/manufacturer.entity';
 import { ManufacturerDto } from '../../dto/manufacturer.dto';
 
 @ApiTags('Manufacturers')
-@Controller('cars/manufacturers')
+@Controller('manufacturers')
 export class ManufacturersController {
   constructor(private readonly manufacturerService: ManufacturerService) {}
 
