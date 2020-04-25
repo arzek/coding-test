@@ -17,7 +17,7 @@ import { CreateCarDto } from '../dto/create-car.dto';
 import { UpdateCarDto } from '../dto/update-car.dto';
 
 @ApiTags('Cars')
-@Controller('car')
+@Controller('cars')
 export class CarsController {
   constructor(private readonly carService: CarService) {}
 
