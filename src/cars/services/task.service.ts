@@ -15,11 +15,11 @@ export class TasksService {
 
   @Cron('*/15 * * * *')
   async handleCron() {
-    this.logger.debug('Begin task');
+    this.logger.debug('Begin task.');
     await Promise.all([
       this.ownerService.removeByPurchaseDateRange(),
       this.carService.setDiscount(),
     ]);
-    this.logger.debug('End task');
+    this.logger.debug('End task.');
   }
 }
