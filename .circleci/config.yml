@@ -31,6 +31,10 @@ jobs:
           - node_modules
 
       - run:
+          name: Test tun app
+          command: npm run start
+
+      - run:
           name: Run UNIT test
           command: npm run test
 

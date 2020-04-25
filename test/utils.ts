@@ -4,8 +4,6 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-import { Connection } from 'typeorm';
-
 import { Test } from '@nestjs/testing';
 import { AppModule } from '../src/app.module';
 import { ValidationPipe } from '@nestjs/common';
@@ -15,12 +13,9 @@ export const createTestingServer = async () => {
     imports: [AppModule],
   }).compile();
 
-  const connection = await moduleFixture.get(Connection);
-
   const app = moduleFixture.createNestApplication();
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
-  await connection.synchronize();
   await app.init();
   return { app, server: app.getHttpServer() };
 };
