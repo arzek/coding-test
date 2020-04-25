@@ -31,8 +31,12 @@ jobs:
           - node_modules
 
       - run:
-          name: Test tun app
-          command: npm run start
+          name: Build
+          command: npm run build
+
+      - run:
+          name: Run migrations
+          command: node ./dist/src/migrations.js
 
       - run:
           name: Run UNIT test
