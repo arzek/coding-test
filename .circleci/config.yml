@@ -9,6 +9,7 @@ jobs:
           POSTGRES_USER: nest
           POSTGRES_PASSWORD: 123
           POSTGRES_DB: nest-app
+
       - image: circleci/postgres
         environment:
           POSTGRES_USER: nest
@@ -16,18 +17,23 @@ jobs:
           POSTGRES_DB: nest-app
     steps:
       - checkout
+
       - restore_cache:
           key: my-project-{{ .Branch }}-{{ checksum "yarn.lock" }}
+
       - run:
           name: Install Dependencies
           command: yarn
+
       - save_cache:
           key: my-project-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
           - node_modules
+
       - run:
           name: Run UNIT test
           command: npm run test
+
       - run:
           name: Run E2E test
           command: npm run test:e2e
