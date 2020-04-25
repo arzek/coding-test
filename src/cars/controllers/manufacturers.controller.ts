@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Param, Put } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { ManufacturerService } from '../../services/manufacturer/manufacturer.service';
+import { ManufacturerService } from '../services/manufacturer.service';
 
-import { Manufacturer } from '../../entities/manufacturer.entity';
+import { Manufacturer } from '../entities/manufacturer.entity';
 
-import { ManufacturerDto } from '../../dto/manufacturer.dto';
+import { ManufacturerDto } from '../dto/manufacturer.dto';
 
 @ApiTags('Manufacturers')
 @Controller('manufacturers')

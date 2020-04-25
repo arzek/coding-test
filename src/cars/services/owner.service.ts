@@ -1,13 +1,12 @@
 import { subMonths } from 'date-fns';
+import { Repository, Between } from 'typeorm';
 
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { Repository, Between } from 'typeorm';
+import { Owner } from '../entities/owner.entity';
 
-import { Owner } from '../../entities/owner.entity';
-
-import { OwnerDto } from '../../dto/owner.dto';
+import { OwnerDto } from '../dto/owner.dto';
 
 @Injectable()
 export class OwnerService {

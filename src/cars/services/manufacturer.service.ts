@@ -8,10 +8,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
 
-import { Manufacturer } from '../../entities/manufacturer.entity';
+import { Manufacturer } from '../entities/manufacturer.entity';
 
-import { ManufacturerDto } from '../../dto/manufacturer.dto';
-import { CarService } from '../car/car.service';
+import { ManufacturerDto } from '../dto/manufacturer.dto';
+import { CarService } from './car.service';
 
 @Injectable()
 export class ManufacturerService {

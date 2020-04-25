@@ -1,11 +1,11 @@
 import { Body, Controller, Param, Put } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { OwnerService } from '../../services/owner/owner.service';
+import { OwnerService } from '../services/owner.service';
 
-import { Owner } from '../../entities/owner.entity';
+import { Owner } from '../entities/owner.entity';
 
-import { OwnerDto } from '../../dto/owner.dto';
+import { OwnerDto } from '../dto/owner.dto';
 
 @ApiTags('Owners')
 @Controller('owners')

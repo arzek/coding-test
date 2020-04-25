@@ -9,12 +9,12 @@ import {
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { CarService } from '../../services/car/car.service';
+import { CarService } from '../services/car.service';
 
-import { Car } from '../../entities/car.entity';
+import { Car } from '../entities/car.entity';
 
-import { CreateCarDto } from '../../dto/create-car.dto';
-import { UpdateCarDto } from '../../dto/update-car.dto';
+import { CreateCarDto } from '../dto/create-car.dto';
+import { UpdateCarDto } from '../dto/update-car.dto';
 
 @ApiTags('Cars')
 @Controller('car')

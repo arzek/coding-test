@@ -8,13 +8,13 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { ManufacturerService } from '../manufacturer/manufacturer.service';
-import { HelperService } from '../helper/helper.service';
+import { ManufacturerService } from './manufacturer.service';
+import { HelperService } from './helper/helper.service';
 
-import { Car } from '../../entities/car.entity';
+import { Car } from '../entities/car.entity';
 
-import { CreateCarDto } from '../../dto/create-car.dto';
-import { UpdateCarDto } from '../../dto/update-car.dto';
+import { CreateCarDto } from '../dto/create-car.dto';
+import { UpdateCarDto } from '../dto/update-car.dto';
 
 @Injectable()
 export class CarService {
