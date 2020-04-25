@@ -4,14 +4,23 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-import { NestFactory } from '@nestjs/core';
+import { Connection } from 'typeorm';
+
+import { Test } from '@nestjs/testing';
+import { AppModule } from '../src/app.module';
 import { ValidationPipe } from '@nestjs/common';
 
-import { AppModule } from '../src/app.module';
-
 export const createTestingServer = async () => {
-  const app = await NestFactory.create(AppModule);
+  const moduleFixture = await Test.createTestingModule({
+    imports: [AppModule],
+  }).compile();
+
+  const connection = await moduleFixture.get(Connection);
+
+  const app = moduleFixture.createNestApplication();
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
+
+  await connection.synchronize();
   await app.init();
   return { app, server: app.getHttpServer() };
 };
