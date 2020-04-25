@@ -18,12 +18,11 @@ describe('CarsController (e2e)', () => {
     return createCar(server);
   });
 
-  it('POST /cars (error)', async () => {
-    return request(server)
+  it('POST /cars (error)', async () =>
+    request(server)
       .post('/cars')
       .send({})
-      .expect(400);
-  });
+      .expect(400));
 
   it('GET /cars', async () => {
     await createCar(server);
@@ -41,11 +40,10 @@ describe('CarsController (e2e)', () => {
       .expect(200);
   });
 
-  it('GET /cars/{id} (error)', async () => {
-    return request(server)
+  it('GET /cars/{id} (error)', async () =>
+    request(server)
       .get(`/cars/89732789`)
-      .expect(404);
-  });
+      .expect(404));
 
   it('GET /cars/manufacturer/{manufacturerId} (success)', async () => {
     const { body } = await createCar(server);
@@ -54,11 +52,10 @@ describe('CarsController (e2e)', () => {
       .expect(200);
   });
 
-  it('GET /cars/manufacturer/{manufacturerId} (error)', async () => {
-    return request(server)
+  it('GET /cars/manufacturer/{manufacturerId} (error)', async () =>
+    request(server)
       .get(`/cars/manufacturer/99999`)
-      .expect(404);
-  });
+      .expect(404));
 
   it('PUT /cars/{id} (success)', async () => {
     const { body } = await createCar(server);
@@ -79,12 +76,11 @@ describe('CarsController (e2e)', () => {
     });
   });
 
-  it('PUT /cars/{id} (error)', async () => {
-    return request(server)
+  it('PUT /cars/{id} (error)', async () =>
+    request(server)
       .put(`/cars/99999`)
       .send({})
-      .expect(400);
-  });
+      .expect(400));
 
   it('DELETE /cars/{id}', async () => {
     const { body } = await createCar(server);
